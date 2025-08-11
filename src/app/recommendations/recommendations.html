@@ -1,0 +1,104 @@
+<!-- ChatGPT-like form container -->
+<div class="recommendations-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Movie Recommendation Assistant</h1>
+    <p>Tell me your mood, preferred genre, and language, and I'll suggest perfect movies for you!</p>
+  </div>
+
+  <!-- Main form - ChatGPT-like design -->
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()" #recommendationForm="ngForm" class="recommendation-form">
+      <!-- Mood field -->
+      <div class="input-group">
+        <label for="mood">Mood</label>
+        <input 
+          type="text" 
+          id="mood"
+          name="mood"
+          [(ngModel)]="mood"
+          placeholder="How are you feeling? (e.g., happy, sad, adventurous, romantic...)"
+          class="text-input"
+          required
+        >
+      </div>
+
+      <!-- Language dropdown -->
+      <div class="input-group">
+        <label for="language">Language</label>
+        <select 
+          id="language"
+          name="language"
+          [(ngModel)]="language"
+          class="select-input"
+          required
+        >
+          <option *ngFor="let option of languageOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Genre field -->
+      <div class="input-group">
+        <label for="genre">Genre</label>
+        <input 
+          type="text" 
+          id="genre"
+          name="genre"
+          [(ngModel)]="genre"
+          placeholder="What genre interests you? (e.g., comedy, drama, action, sci-fi...)"
+          class="text-input"
+          required
+        >
+      </div>
+
+      <!-- Submit and Reset buttons -->
+      <div class="button-group">
+        <button 
+          type="submit" 
+          class="submit-btn"
+          [disabled]="!mood.trim() || !genre.trim() || isLoading"
+        >
+          <span *ngIf="!isLoading">Get Recommendations</span>
+          <span *ngIf="isLoading">Loading...</span>
+        </button>
+        
+        <button 
+          type="button" 
+          class="reset-btn"
+          (click)="onReset()"
+          [disabled]="isLoading"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Finding perfect movies for you...</p>
+  </div>
+
+  <!-- Recommendations display -->
+  <div *ngIf="hasSubmitted && !isLoading" class="results-container">
+    <div *ngIf="recommendations.length > 0; else noResults">
+      <h2>Your Movie Recommendations</h2>
+      <div class="recommendations-grid">
+        <app-recommendation 
+          *ngFor="let recommendation of recommendations; trackBy: trackByTitle"
+          [recommendation]="recommendation">
+        </app-recommendation>
+      </div>
+    </div>
+    
+    <ng-template #noResults>
+      <div class="no-results">
+        <h2>No Recommendations Found</h2>
+        <p>Sorry, we couldn't find any movies matching your criteria. Try adjusting your mood or genre preferences.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

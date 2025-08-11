@@ -1,0 +1,109 @@
+.recommendation-card {
+  display: flex;
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .poster-container {
+    flex-shrink: 0;
+    width: 150px;
+    height: 225px;
+    position: relative;
+    overflow: hidden;
+    
+    .movie-poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover .movie-poster {
+      transform: scale(1.05);
+    }
+  }
+  
+  .movie-details {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .movie-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    
+    .movie-year {
+      font-size: 0.9rem;
+      color: #6b7280;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding: 0.25rem 0.75rem;
+      background: #f3f4f6;
+      border-radius: 2rem;
+      display: inline-block;
+      width: fit-content;
+    }
+    
+    .movie-description {
+      color: #4b5563;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      margin: 0;
+      flex-grow: 1;
+    }
+  }
+}
+
+// Responsive design for recommendation cards
+@media (max-width: 768px) {
+  .recommendation-card {
+    flex-direction: column;
+    
+    .poster-container {
+      width: 100%;
+      height: 200px;
+    }
+    
+    .movie-details {
+      padding: 1rem;
+      
+      .movie-title {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendation-card {
+    .poster-container {
+      height: 180px;
+    }
+    
+    .movie-details {
+      padding: 0.75rem;
+      
+      .movie-title {
+        font-size: 1.1rem;
+      }
+      
+      .movie-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
