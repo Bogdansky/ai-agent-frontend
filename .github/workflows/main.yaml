@@ -3,9 +3,33 @@ name: Run Angular tests
 on: [push, pull_request]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: 🏗 Build Project
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build --if-present
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
   test:
     runs-on: ubuntu-latest
-
+    name: 🧪 Run Unit Tests
+    needs: build
     steps:
       - uses: actions/checkout@v3
 
@@ -22,6 +46,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+
       - name: Run tests
-        run: |
-          npm run test
+        run: npm run test
+
+  deploy:
+    name: Deploy to Production
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Echo deploy
+        run: echo "🚀 Deploying to environment..."
