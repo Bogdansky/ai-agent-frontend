@@ -1,0 +1,151 @@
+
+.recommendations-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: transparent;
+    box-shadow: none;
+    
+    .mat-card-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #222;
+      text-shadow: none;
+    }
+    .mat-card-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #444;
+    }
+  }
+
+  .form-container {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .recommendation-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      .input-group {
+        margin-bottom: 1.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+
+        mat-form-field {
+          width: 100%;
+          max-width: none;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+      }
+
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 1.5rem;
+
+        button {
+          flex: 1;
+          max-width: 180px;
+        }
+      }
+    }
+  }
+
+  .loading-container {
+    text-align: center;
+    padding: 3rem;
+    color: white;
+
+    p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  }
+
+  .results-container {
+    .recommendations-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    h2 {
+      color: white;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      .mat-card-title {
+        color: #374151;
+        margin-bottom: 1rem;
+        text-shadow: none;
+      }
+      .mat-card-content p {
+        color: #6b7280;
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .recommendations-container {
+    padding: 1rem;
+    .header h1 {
+      font-size: 2rem;
+    }
+    .form-container {
+      padding: 1.5rem;
+      .recommendation-form {
+        .input-group {
+          .mat-form-field {
+            max-width: 100%;
+          }
+        }
+        .button-group {
+          flex-direction: column;
+          button {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

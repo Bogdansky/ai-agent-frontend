@@ -1,0 +1,108 @@
+
+<div class="recommendations-container">
+  <mat-card class="header">
+    <mat-card-title>Movie Recommendation Assistant</mat-card-title>
+    <mat-card-content>
+      <p>Tell me your mood, preferred genre, and language, and I'll suggest perfect movies for you!</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="form-container">
+    <form (ngSubmit)="onSubmit()" #recommendationForm="ngForm" class="recommendation-form">
+      <div class="input-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mood</mat-label>
+          <input matInput
+            id="mood"
+            name="mood"
+            [(ngModel)]="mood"
+            placeholder="How are you feeling? (e.g., happy, sad, adventurous, romantic...)"
+            required>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Language</mat-label>
+          <mat-select
+            id="language"
+            name="language"
+            [(ngModel)]="language"
+            required>
+            @for(option of languageOptions; track option.value) {
+              <mat-option [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Genre</mat-label>
+          <input matInput
+            id="genre"
+            name="genre"
+            [(ngModel)]="genre"
+            placeholder="What genre interests you? (e.g., comedy, drama, action, sci-fi...)"
+            required>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary"
+          type="submit"
+          [disabled]="!mood.trim() || !genre.trim() || isLoading">
+          @if(isLoading) {
+            <span >
+              <mat-progress-spinner diameter="20" mode="indeterminate" color="accent" style="vertical-align: middle; margin-right: 8px;" [strokeWidth]="3"></mat-progress-spinner>
+              Loading...
+            </span>
+          } 
+          @else {
+            <span>Get Recommendations</span>
+          }
+        </button>
+        <button mat-stroked-button color="warn"
+          type="button"
+          (click)="onReset()"
+          [disabled]="isLoading">
+          Reset
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  @if (isLoading) {
+    <div class="loading-container">
+      <mat-progress-spinner diameter="40" mode="indeterminate" color="accent"></mat-progress-spinner>
+      <p>Finding perfect movies for you...</p>
+    </div>
+  }
+
+  @if(hasSubmitted && !isLoading) {
+    <div class="results-container">
+      @if (recommendations.length > 0) {
+        <div>
+          <h2>Your Movie Recommendations</h2>
+          <div class="recommendations-grid">
+            <app-recommendation 
+              *ngFor="let recommendation of recommendations; trackBy: trackByTitle"
+              [recommendation]="recommendation">
+            </app-recommendation>
+          </div>
+        </div>
+      }
+      @else {
+        <mat-card class="no-results">
+          <mat-card-title>No Recommendations Found</mat-card-title>
+          <mat-card-content>
+            <p>Sorry, we couldn't find any movies matching your criteria. Try adjusting your mood or genre preferences.</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+  
+</div>
