@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecommendationDto } from '../../api/models/GetRecommendationsResponseDto';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-recommendation',
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './recommendation.html',
   styleUrl: './recommendation.scss'
 })

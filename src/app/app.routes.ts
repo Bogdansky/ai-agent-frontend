@@ -1,7 +1,12 @@
 import { Routes } from '@angular/router';
-import { Recommendations } from './recommendations/recommendations';
 
 export const routes: Routes = [
-  { path: '', component: Recommendations },
-  { path: 'recommendations', component: Recommendations }
+  { 
+    path: 'recommendations', 
+    async loadComponent() { 
+      const recImport = await import("./recommendations/recommendations");
+      return recImport.Recommendations; 
+    }
+  },
+  { path: '**', redirectTo: '/recommendations'}
 ];

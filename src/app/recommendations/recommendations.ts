@@ -5,10 +5,26 @@ import { RecommendationsService } from '../../services/recommendations.service';
 import { RecommendationDto } from '../../api/models/GetRecommendationsResponseDto';
 import { GetRecommendationsRequest } from '../../models/get-recommendation.request';
 import { Recommendation } from '../recommendation/recommendation';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-recommendations',
-  imports: [FormsModule, CommonModule, Recommendation],
+  imports: [
+    FormsModule,
+    CommonModule,
+    Recommendation,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './recommendations.html',
   styleUrl: './recommendations.scss'
 })

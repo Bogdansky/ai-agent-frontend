@@ -1,20 +1,21 @@
-<!-- Single recommendation card -->
-<div class="recommendation-card" *ngIf="recommendation">
-  <!-- Movie poster -->
-  <div class="poster-container">
-    <img 
-      [src]="recommendation.posterLink" 
-      [alt]="recommendation.title + ' poster'"
-      class="movie-poster"
-      (error)="onImageError($event)"
-      loading="lazy"
-    >
-  </div>
-  
-  <!-- Movie details -->
-  <div class="movie-details">
-    <h3 class="movie-title">{{ recommendation.title }}</h3>
-    <div class="movie-year">{{ recommendation.releaseYear }}</div>
-    <p class="movie-description">{{ recommendation.description }}</p>
-  </div>
-</div>
+
+@if(recommendation) {
+  <mat-card class="recommendation-card">
+    <div class="poster-container">
+      <img
+        mat-card-image
+        [src]="recommendation.posterLink"
+        [alt]="recommendation.title + ' poster'"
+        class="movie-poster"
+        (error)="onImageError($event)"
+        loading="lazy">
+    </div>
+    <mat-card-content class="movie-details">
+      <div class="movie-title-row">
+        <span class="movie-title">{{ recommendation.title }}</span>
+        <span class="movie-year">{{ recommendation.releaseYear }}</span>
+      </div>
+      <p class="movie-description">{{ recommendation.description }}</p>
+    </mat-card-content>
+  </mat-card>
+}
