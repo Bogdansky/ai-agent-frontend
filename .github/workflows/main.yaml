@@ -5,6 +5,8 @@ on:
 		branches:
 			- master
 	pull_request:
+    branches:
+      - master  # Runs on PRs targeting the master branch
 
 jobs:
 	build-and-test:
